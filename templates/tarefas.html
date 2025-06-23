@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinhasTarefas - Suas Tarefas</title>
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <link rel="stylesheet" href="/static/styles/tarefas.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                    </svg>
+                </div>
+                <div class="header-info">
+                    <h1>MinhasTarefas</h1>
+                    <p>Organize sua produtividade</p>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-3-3.87"></path>
+                            <path d="M4 21v-2a4 4 0 013-3.87"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="user-details">
+                        <p class="user-name" id="userName">{{current_user.name}}</p>
+                        <p class="user-email" id="userEmail">{{current_user.email}}</p>
+                    </div>
+                </div>
+                
+                <a href= "./logout" style='text-decoration: none;''><button class="logout-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
+                        <polyline points="16,17 21,12 16,7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Sair</span>
+                </button></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Estatísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <p class="stat-number" id="totalTarefas">0</p>
+                    <p class="stat-label">Total</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon pendentes">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12,6 12,12 16,14"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <p class="stat-number" id="tarefasPendentes">0</p>
+                    <p class="stat-label">Pendentes</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon concluidas">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                        <polyline points="22,4 12,14.01 9,11.01"></polyline>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <p class="stat-number" id="tarefasConcluidas">0</p>
+                    <p class="stat-label">Concluídas</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon alta-prioridade">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <div class="stat-info">
+                    <p class="stat-number" id="tarefasAltaPrioridade">0</p>
+                    <p class="stat-label">Alta Prioridade</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário de nova tarefa -->
+        <div class="todo-form-card">
+            <form id="todoForm" class="todo-form">
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="tarefaTexto">Nova Tarefa</label>
+                        <textarea id="tarefaTexto" name="texto" placeholder="O que você precisa fazer?" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="prioridade">Prioridade</label>
+                        <div class="input-group">
+                            <select id="prioridade" name="prioridade">
+                                <option value="baixa">Baixa</option>
+                                <option value="media" selected>Média</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoria</label>
+                        <div class="input-group">
+                            <select id="categoria" name="categoria">
+                                <option value="Geral">Geral</option>
+                                <option value="Trabalho">Trabalho</option>
+                                <option value="Pessoal">Pessoal</option>
+                                <option value="Estudos">Estudos</option>
+                                <option value="Saúde">Saúde</option>
+                                <option value="Compras">Compras</option>
+                                <option value="Personalizada">Personalizada...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="categoriaPersonalizadaGroup" class="form-group full-width" style="display: none;">
+                    <label for="categoriaPersonalizada">Nome da Categoria</label>
+                    <input type="text" id="categoriaPersonalizada" name="categoriaPersonalizada" placeholder="Digite o nome da categoria">
+                </div>
+
+                <div class="form-footer">
+                    <div class="priority-preview">
+                        <span>Prioridade:</span>
+                        <span class="priority-badge" id="priorityPreview">Média</span>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="addTodoBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span class="btn-text">Adicionar</span>
+                        <div class="loading-spinner" style="display: none;"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-card">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="busca">Buscar</label>
+                    <div class="input-group">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                        <input type="text" id="busca" placeholder="Buscar tarefas...">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtroStatus">Status</label>
+                    <select id="filtroStatus">
+                        <option value="todas">Todas</option>
+                        <option value="pendentes">Pendentes</option>
+                        <option value="concluidas">Concluídas</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filtroCategoria">Categoria</label>
+                    <select id="filtroCategoria">
+                        <option value="todas">Todas</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="ordenacao">Ordenar por</label>
+                    <select id="ordenacao">
+                        <option value="recentes">Mais recentes</option>
+                        <option value="antigas">Mais antigas</option>
+                        <option value="prioridade">Prioridade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de tarefas -->
+        <div class="todos-section">
+            <div class="todos-header">
+                <h2 id="todosCount">0 tarefas</h2>
+            </div>
+            
+            <div id="todosList" class="todos-list">
+                <!-- Tarefas serão inseridas aqui via JavaScript -->
+            </div>
+
+            <div id="emptyState" class="empty-state">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"></path>
+                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"></path>
+                </svg>
+                <h3>Nenhuma tarefa ainda</h3>
+                <p>Que tal adicionar sua primeira tarefa?</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/script/tarefas.js"></script>
+</body>
+</html>

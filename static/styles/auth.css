@@ -1,0 +1,180 @@
+/* Estilos para páginas de autenticação */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #dbeafe 0%, #ffffff 50%, #e0e7ff 100%);
+}
+
+.auth-container.registro-bg {
+    background: linear-gradient(135deg, #d1fae5 0%, #ffffff 50%, #dcfce7 100%);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--gray-100);
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius-lg);
+    margin: 0 auto 1rem;
+}
+
+.auth-header .logo.registro-logo {
+    background-color: var(--secondary-color);
+}
+
+.auth-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+.auth-form {
+    margin-bottom: 2rem;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.25rem;
+}
+
+.auth-form .input-group {
+    position: relative;
+}
+
+.auth-form .input-group input {
+    padding-left: 2.75rem;
+    padding-right: 3rem;
+    height: 48px;
+}
+
+.auth-form .input-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    z-index: 1;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: var(--gray-600);
+}
+
+.auth-form .btn-primary {
+    width: 100%;
+    height: 48px;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.auth-form .btn-primary.registro-btn {
+    background-color: var(--secondary-color);
+}
+
+.auth-form .btn-primary.registro-btn:hover {
+    background-color: var(--secondary-hover);
+}
+
+.auth-footer {
+    text-align: center;
+}
+
+.auth-footer p {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.auth-footer a:hover {
+    color: var(--primary-hover);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--gray-800);
+}
+
+/* Validação visual */
+.auth-form .form-group.success input {
+    border-color: var(--success-color);
+    background-color: #f0fdf4;
+}
+
+.auth-form .form-group.error input {
+    border-color: var(--error-color);
+    background-color: #fef2f2;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 1.5rem;
+        margin: 0.5rem;
+    }
+    
+    .auth-header .logo {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .auth-header h1 {
+        font-size: 1.25rem;
+    }
+}

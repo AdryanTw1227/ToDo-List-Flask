@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinhasTarefas - Registro</title>
+    <link rel="stylesheet" href="/static/styles/main.css">
+    <link rel="stylesheet" href="/static/styles/auth.css">
+</head>
+
+<body>
+    <div class="auth-container registro-bg">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="logo registro-logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </div>
+                <h1>Criar Conta</h1>
+                <p>Junte-se e organize suas tarefas</p>
+            </div>
+
+            <form id="registroForm" class="auth-form" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <div class="input-group">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-3-3.87"></path>
+                            <path d="M4 21v-2a4 4 0 013-3.87"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailRegistro">Email</label>
+                    <div class="input-group">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="senhaRegistro">Senha</label>
+                    <div class="input-group">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <circle cx="12" cy="16" r="1"></circle>
+                            <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                        </svg>
+                        <input type="password" id="senhaRegistro" name="senha" placeholder="Mínimo 6 caracteres"
+                            required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('senhaRegistro')">
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Senha</label>
+                    <div class="input-group">
+                        <svg class="input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <circle cx="12" cy="16" r="1"></circle>
+                            <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                        </svg>
+                        <input type="password" id="confirmarSenha" name="confirmarSenha"
+                            placeholder="Digite a senha novamente" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmarSenha')">
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                <button type="submit" class="btn-primary registro-btn" id="registroBtn">
+                    <span class="btn-text">Criar Conta</span>
+                    <div class="loading-spinner" style="display: none;"></div>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <a href="./login" class="back-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5"></path>
+                        <path d="M12 19l-7-7 7-7"></path>
+                    </svg>
+                    Voltar para login
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script/auth.js"></script>
+    <script>
+        document.getElementById("registroForm").addEventListener("submit", function (event) {
+            const senha = document.getElementById("senhaRegistro").value;
+            const confirmar = document.getElementById("confirmarSenha").value;
+            const errorDiv = document.getElementById("errorMessage");
+
+            if (senha !== confirmar) {
+                event.preventDefault(); // Impede o envio do formulário
+                errorDiv.textContent = "As senhas não coincidem.";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            if (senha.length < 6) {
+                event.preventDefault();
+                errorDiv.textContent = "A senha deve ter no mínimo 6 caracteres.";
+                errorDiv.style.display = "block";
+                return;
+            }
+
+            // Se tudo estiver certo, esconde a mensagem de erro (caso tenha)
+            errorDiv.style.display = "none";
+        });
+    </script>
+</body>
+
+</html>
